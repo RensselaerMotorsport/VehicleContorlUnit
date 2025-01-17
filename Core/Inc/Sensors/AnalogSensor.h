@@ -1,6 +1,7 @@
 #ifndef RENSSELAERMOTORSPORT_ANALOGSENSOR_H
 #define RENSSELAERMOTORSPORT_ANALOGSENSOR_H
 
+
 #ifndef TEST_MODE
 // STM32 HAL includes
 #include "stm32f7xx.h"
@@ -24,6 +25,14 @@
 #define BUFFER_SIZE 1000 // Size of the circular buffer, change in the future if needed
 
 // Structures
+typedef void (*RCC_ClockEnableFunc)(void); // Function pointer type for RCC clock enable
+
+typedef struct {
+    GPIO_TypeDef* port;
+    uint16_t pin;
+    RCC_ClockEnableFunc rcc;
+} GPIOConfig;
+
 typedef struct {
     Sensor sensor;
     int channel;
@@ -53,6 +62,10 @@ extern uint16_t adc2_buffer[6];
 extern uint16_t adc3_buffer[4];
 
 extern char uart_buf[UART_BUF_SIZE];
+
+static inline void RCC_GPIOA_Enable() { __HAL_RCC_GPIOA_CLK_ENABLE(); }
+static inline void RCC_GPIOB_Enable() { __HAL_RCC_GPIOB_CLK_ENABLE(); }
+static inline void RCC_GPIOC_Enable() { __HAL_RCC_GPIOC_CLK_ENABLE(); }
 
 #endif // RENSSELAERMOTORSPORT_ANALOGSENSOR_H
 
