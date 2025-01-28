@@ -6,6 +6,7 @@
 typedef struct {
     AnalogSensor base;
     float position;
+    float rawData;
 } App;
 
 /**
@@ -31,6 +32,21 @@ float getAppPosition(App* app);
  * @param app Pointer to the App structure to update.
  */
 void updateApp(void* app);
+
+/**
+ * @brief Log the APP data.
+ *
+ * @param app Pointer to the App structure to update.
+ */
+void logApp(void* app);
+
+/**
+ * @brief Retrieves updateable portion of APP system
+ *
+ * @param apps A pointer to the APP structure.
+ * @return Pointer to updateable structure
+ */
+Updateable* GetUpdateableApp(App* app);
 
 /**
  * @brief Converts raw APP data to a meaningful position value.

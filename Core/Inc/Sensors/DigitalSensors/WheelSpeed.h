@@ -12,6 +12,7 @@ typedef struct {
     float interval;
     int numTeeth;
     int pulses;
+    float rawData;
 } WheelSpeed;
 
 /**
@@ -40,6 +41,21 @@ float calculateSpeed(WheelSpeed* ws);
  * @param ws A pointer to the WheelSpeed structure.
  */
 void updateWheelSpeed(void* ws);
+
+/**
+ * @brief Log the wheelspeed data.
+ *
+ * @param ws A pointer to the WheelSpeed structure.
+ */
+void logWheelSpeed(void* ws);
+
+/**
+ * @brief Retrieves updateable portion of WheelSpeed system
+ *
+ * @param ws A pointer to the WheelSpeed structure.
+ * @return Pointer to updateable structure
+ */
+Updateable* GetUpdateableWheelSpeed(WheelSpeed* ws);
 
 /**
  * @brief Set time interval.

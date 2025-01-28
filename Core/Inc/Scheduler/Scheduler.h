@@ -1,13 +1,20 @@
+/**
+  ******************************************************************************
+  * @file           : Scheduler.h
+  * @brief          : Scheduler for processing each task
+  ******************************************************************************
+*/
+
 #ifndef RENSSELAERMOTORSPORT_SCHEDULER_H
 #define RENSSELAERMOTORSPORT_SCHEDULER_H
 
 #include <stdbool.h>
 
-#include "../Sensors/Sensor.h"
+#include "../Utils/Updateable.h"
 #include "Task.h"
 #include "PriorityQueue.h"
 
-#define MAX_SENSORS 10
+#define MAX_UPDATEABLES 10
 #define MAX_HZ 1000
 
 typedef struct Scheduler {
@@ -19,10 +26,18 @@ typedef struct Scheduler {
  * @brief Initializes the scheduler with the given sensors.
  *
  * @param scheduler   Pointer to the Scheduler structure to initialize.
- * @param sensorArray Array of pointers to Sensor structures to be scheduled.
- * @param numSensors  Number of sensors in the sensorArray.
+ * @param updateableArray Array of pointers to Updateable structures to be scheduled.
+ * @return True if init worked. False otherwise
  */
-void SchedulerInit(Scheduler* scheduler, Sensor* sensorArray[], int numSensors);
+bool SchedulerInit(Scheduler* scheduler, Updateable** updatableArray);
+
+/**
+ * Processes each task for a given time
+ *
+ * @param scheduler Pointer to scheduler structure
+ * @param currentTime The time in which were processing
+ */
+void ProcessDueTasks(Scheduler* scheduler, int currentTime);
 
 /**
  * @brief Runs the scheduler, executing tasks based on their priority.
